@@ -3,6 +3,7 @@
   <head>
   
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
      <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
@@ -19,11 +20,11 @@
               <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
               <ul id="nav-mobile" class="left">
                   <li><a href="/">Home</a></li>
-                  <li><a href="/users">Users Jinja</a></li>
-                  {% if is_authenticated %}
-                    <li><a href="/identify">Identify</a></li>
-                  {% endif %}
-                  <li><a href="/static/users">Users JS</a></li>
+                  <li><a href="/users">Read</a></li>
+
+                    <li><a href="/books">Books</a></li>
+                
+                  <li><a href="/static/users"> Book Club</a></li>
               </ul>
               {% if is_authenticated %}
               <ul id="nav-mobile" class="right">

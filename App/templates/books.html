@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block title %}BookMap{% endblock %}
+{% block page %}BookMap{% endblock %}
+
+{% block content %}
+
+<h1>Favorites</h1>
+<div class="row">
+    {% if favoriteBooks %}
+        {% for book in favoriteBooks %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ book.image }}" class="card-img-top" alt="{{ book.Title }} cover">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.Title }}</h5>
+                        <p class="card-text">{{ book.Author }}</p>
+                        <p class="card-text">{{ book.Publication_Year }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No favorite books found.</p>
+    {% endif %}
+</div>
+
+<h1>To Be Read</h1>
+<div class="row">
+    {% if tbrBooks %}
+        {% for book in tbrBooks %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ book.image }}" class="card-img-top" alt="{{ book.Title }} cover">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.Title }}</h5>
+                        <p class="card-text">{{ book.Author }}</p>
+                        <p class="card-text">{{ book.Publication_Year }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No books to be read found.</p>
+    {% endif %}
+</div>
+
+<h1>Read</h1>
+<div class="row">
+    {% if readBooks %}
+        {% for book in readBooks %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ book.image }}" class="card-img-top" alt="{{ book.Title }} cover">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.Title }}</h5>
+                        <p class="card-text">{{ book.Author }}</p>
+                        <p class="card-text">{{ book.Publication_Year }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No read books found.</p>
+    {% endif %}
+</div>
+
+<h1>Current Read</h1>
+<div class="row">
+    {% if currentReadBooks %}
+        {% for book in currentReadBooks %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ book.image }}" class="card-img-top" alt="{{ book.Title }} cover">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.Title }}</h5>
+                        <p class="card-text">{{ book.Author }}</p>
+                        <p class="card-text">{{ book.Publication_Year }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No current read books found.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,13 +1,66 @@
-{% extends "layout.html" %}
-{% block title %}Flask MVC App{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+    {% extends "layout.html" %}
 
-{{ super() }}
+    {% block title %}BookMap{% endblock %}
+    {% block page %}BookMap{% endblock %}
 
-{% block content %}
-    <h1>Flask MVC</h1>
-    {% if is_authenticated %}
-        <p> Welcome {{current_user.username}} </p>
-    {% endif %}
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
-{% endblock %}
+    {% block content %}
+    <h2>Enter your current read</h2>
+    <form class="form-inline mb-4" action="/search" method="get">
+        <input id="books" class="form-control mr-sm-2" type="search" name="q" placeholder="Enter book name" aria-label="Search" required>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Enter book</button>
+    </form>
+
+
+    <h1>Top Books</h1>
+    <div class="row">
+        {% for book in books %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if book.volumeInfo.imageLinks and book.volumeInfo.imageLinks.thumbnail %}
+                        <img src="{{ book.volumeInfo.imageLinks.thumbnail }}" class="card-img-top" alt="{{ book.volumeInfo.title }} cover">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.volumeInfo.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ book.volumeInfo.authors | join(', ') if book.volumeInfo.authors else 'Unknown' }}</h6>
+                        <p class="card-text">{{ book.volumeInfo.publishedDate }}</p>
+                        <div class="card-action">
+                            <form action="{{ url_for('book_views.add_book_to_reading_list') }}" method="POST">
+                                <input type="hidden" name="id" value="{{ book.id }}">
+                                <input type="hidden" name="title" value="{{ book.volumeInfo.title }}">
+                                <input type="hidden" name="authors" value="{{ book.volumeInfo.authors | join(', ') if book.volumeInfo.authors else 'Unknown' }}">
+                                <input type="hidden" name="published_date" value="{{ book.volumeInfo.publishedDate }}">
+                                <input type="hidden" name="image" value="{{ book.volumeInfo.imageLinks.thumbnail if book.volumeInfo.imageLinks and book.volumeInfo.imageLinks.thumbnail else 'https://via.placeholder.com/150' }}">
+
+                                <div class="form-group">
+                                    <label for="status">Select Status:</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="favorites">Favorites</option>
+                                        <option value="to read">To Read</option>
+                                        <option value="read">Read</option>
+                                        <option value="current read">Currently Reading</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Add To Reading List</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+    (function() {
+        var allbooks = [
+            {% for book in books %}
+                "{{ book.volumeInfo.title }}",
+            {% endfor %}
+        ];
+        $("#books").autocomplete({
+            source: allbooks
+        });
+    })();
+    </script>
+    {% endblock %}

@@ -17,6 +17,7 @@ from App.controllers import (
 
 from App.views import views, setup_admin
 
+
 def add_views(app):
     for view in views:
         app.register_blueprint(view)

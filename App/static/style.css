@@ -1,3 +1,21 @@
 html {
     padding: 0;
 }
+
+#book-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    
+}
+
+#book-list-item {
+    margin-bottom: 10px;
+}
+#book-image {
+    width: 100px;
+    height: 150px;
+}
